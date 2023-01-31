@@ -3,15 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - LED
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - LEDs (old)
   - Water
   - UI
-  - 
+  - LEDs (new)
   - 
   - 
   - 
