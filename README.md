@@ -1,5 +1,5 @@
 # Arena Lighting
-Unity Project that creates virtual light shows of the stadiums as a demo for light show companies such as [Xyloband](https://xylobands.com) and [Pixmob](https://www.pixmob.com).
+Unity Project that creates virtual simulation of the arena light show as a demo for light show companies such as [Xyloband](https://xylobands.com) and [Pixmob](https://www.pixmob.com).
 
 ### Sponsor
 [Mike ...](mailto:musicmattersbookings@gmail.com)
