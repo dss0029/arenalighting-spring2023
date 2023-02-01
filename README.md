@@ -18,4 +18,4 @@ Unity Project that creates virtual light shows of the stadiums as a demo for lig
 1. Read [How to setup a development environment](https://github.com/dss0029/arenalighting-spring2023/wiki/How-to-setup-a-development-environment).
 2. Read [How to open project in Unity wiki](https://github.com/dss0029/arenalighting-spring2023/wiki/How-to-open-project-in-Unity).
 
-> :info: You can find more tutorials and documentation in current repository [wiki](https://github.com/dss0029/arenalighting-spring2023/wiki).
+> :information_source: You can find more tutorials and documentation in current repository [wiki](https://github.com/dss0029/arenalighting-spring2023/wiki).
