@@ -2,7 +2,7 @@
 Unity Project that creates virtual simulation of the arena light show as a demo for light show companies such as [Xyloband](https://xylobands.com) and [Pixmob](https://www.pixmob.com).
 
 ### Sponsor
-[Mike ...](mailto:musicmattersbookings@gmail.com)
+[Mike Moody](mailto:musicmattersbookings@gmail.com)
 
 ### Spring 2023 Team Developers
 - Devin Spivey.
