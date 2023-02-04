@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -6,7 +5,18 @@ using UnityEngine;
 public class DynamicCameraControl : MonoBehaviour
 {
     public TMP_Text dynamicViewText;
-    public CameraController cameraController;
+
+    public Camera MainCamera;
+    public float speed = 3;
+    public float inclineAngle = 30;
+
+    private float rotationY;
+
+    [SerializeField]
+    private Transform target;
+
+    [SerializeField]
+    private float distanceFromTarget;
 
     private int currentSelection = 0;
     private List<string> dynamicViews = new List<string> { "Aerial View" };
@@ -16,6 +26,14 @@ public class DynamicCameraControl : MonoBehaviour
     {
 
         UpdateUI(dynamicViews[currentSelection]);
+    }
+
+    private void Update()
+    {
+        if (dynamicViews[currentSelection] == "Aerial View")
+        {
+            AerialView();
+        }
     }
 
     public void ChangePositionRight()
@@ -49,5 +67,14 @@ public class DynamicCameraControl : MonoBehaviour
     private void UpdateUI(string selectionName)
     {
         dynamicViewText.text = selectionName;
+    }
+
+    private void AerialView()
+    {
+        rotationY += speed * Time.deltaTime;
+
+        MainCamera.transform.localEulerAngles = new Vector3(inclineAngle, rotationY, 0);
+
+        MainCamera.transform.position = target.position - MainCamera.transform.forward * distanceFromTarget;
     }
 }

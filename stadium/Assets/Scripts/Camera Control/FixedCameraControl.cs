@@ -6,16 +6,23 @@ using UnityEngine;
 public class FixedCameraControl : MonoBehaviour
 {
     public TMP_Text fixedPositionNameText;
-    public CameraController cameraController;
+    public Camera MainCamera;
+
+    public Vector3 startPosition;
+    public Vector3 startRotation;
+    public float speed;
 
     private Dictionary<string, Tuple<Vector3, Vector3>> positions =
         new Dictionary<string, Tuple<Vector3, Vector3>>();
     private int currentPosition;
 
+    private Vector3 targetPosition;
+    private Quaternion targetRotation;
+
     private void Start()
     {
         Vector3 rotationVector = new Vector3(10f, -90f, 0);
-        positions.Add("Default", new Tuple<Vector3, Vector3>(cameraController.startPosition, cameraController.startRotation));
+        positions.Add("Default", new Tuple<Vector3, Vector3>(startPosition, startRotation));
         positions.Add("Section 28", new Tuple<Vector3, Vector3>(new Vector3(-8.97f, 3.0f, -10.02f), rotationVector));
         positions.Add("Section 29", new Tuple<Vector3, Vector3>(new Vector3(-9.02f, 3.0f, -4.34f), rotationVector));
         // positions.Add("Section 29", new Tuple<Vector3, Vector3>(new Vector3(-8.97f, 3.0f, -10.02f), rotationVector));
@@ -23,7 +30,13 @@ public class FixedCameraControl : MonoBehaviour
 
         List<string> keyList = new List<string>(this.positions.Keys);
         UpdateUI(keyList[currentPosition]);
-        cameraController.MoveTo(positions["Default"].Item1, positions["Default"].Item2);
+        MoveTo(positions["Default"].Item1, positions["Default"].Item2);
+    }
+
+    private void Update()
+    {
+        MainCamera.transform.position = Vector3.Lerp(MainCamera.transform.position, targetPosition, speed * Time.deltaTime);
+        MainCamera.transform.rotation = Quaternion.Lerp(MainCamera.transform.rotation, targetRotation, speed * Time.deltaTime);
     }
 
     public void ChangePositionRight()
@@ -43,7 +56,7 @@ public class FixedCameraControl : MonoBehaviour
         Tuple<Vector3, Vector3> transformData = positions[newPositionName];
 
         UpdateUI(newPositionName);
-        cameraController.MoveTo(transformData.Item1, transformData.Item2);
+        MoveTo(transformData.Item1, transformData.Item2);
     }
 
     public void ChangePositionLeft()
@@ -63,11 +76,17 @@ public class FixedCameraControl : MonoBehaviour
         Tuple<Vector3, Vector3> transformData = positions[newPositionName];
 
         UpdateUI(newPositionName);
-        cameraController.MoveTo(transformData.Item1, transformData.Item2);
+        MoveTo(transformData.Item1, transformData.Item2);
     }
 
     private void UpdateUI(string positionName)
     {
         fixedPositionNameText.text = positionName;
+    }
+
+    public void MoveTo(Vector3 pos, Vector3 rotationVector)
+    {
+        targetPosition = pos;
+        targetRotation = Quaternion.Euler(rotationVector);
     }
 }
