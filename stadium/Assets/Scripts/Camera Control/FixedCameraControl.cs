@@ -25,8 +25,6 @@ public class FixedCameraControl : MonoBehaviour
         positions.Add("Default", new Tuple<Vector3, Vector3>(startPosition, startRotation));
         positions.Add("Section 28", new Tuple<Vector3, Vector3>(new Vector3(-8.97f, 3.0f, -10.02f), rotationVector));
         positions.Add("Section 29", new Tuple<Vector3, Vector3>(new Vector3(-9.02f, 3.0f, -4.34f), rotationVector));
-        // positions.Add("Section 29", new Tuple<Vector3, Vector3>(new Vector3(-8.97f, 3.0f, -10.02f), rotationVector));
-
 
         List<string> keyList = new List<string>(this.positions.Keys);
         UpdateUI(keyList[currentPosition]);
