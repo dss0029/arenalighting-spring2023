@@ -6,6 +6,8 @@ using UnityEngine;
 
 public static class FixedCameraControlData
 {
+    public static string filePath = "FixedCameraControlData";
+
     public static string ToJson(Dictionary<string, Tuple<Vector3, Vector3>> fixedPositions)
     {
         Dictionary<string, Dictionary<string, Dictionary<string, float>>> serializedPositions =
@@ -17,12 +19,12 @@ public static class FixedCameraControlData
             Dictionary<string, float> rotationDictionary = new Dictionary<string, float>();
 
             positionDictionary.Add("x", position.Value.Item1.x);
-            positionDictionary.Add("y", position.Value.Item1.x);
-            positionDictionary.Add("z", position.Value.Item1.x);
+            positionDictionary.Add("y", position.Value.Item1.y);
+            positionDictionary.Add("z", position.Value.Item1.z);
 
             rotationDictionary.Add("x", position.Value.Item2.x);
-            rotationDictionary.Add("y", position.Value.Item2.x);
-            rotationDictionary.Add("z", position.Value.Item2.x);
+            rotationDictionary.Add("y", position.Value.Item2.y);
+            rotationDictionary.Add("z", position.Value.Item2.z);
 
             Dictionary<string, Dictionary<string, float>> transformDictionary = new Dictionary<string, Dictionary<string, float>>();
             transformDictionary.Add("position", positionDictionary);
@@ -56,32 +58,11 @@ public static class FixedCameraControlData
         return fixedPositions;
     }
 
-    public static Dictionary<string, Tuple<Vector3, Vector3>> LoadFixedCameraControlData(string filepath)
+    public static Dictionary<string, Tuple<Vector3, Vector3>> LoadFixedCameraControlData()
     {
-        if (FileManager.LoadFromFile(filepath, out var json))
-        {
-            Dictionary<string, Tuple<Vector3, Vector3>> data = FromJson(json);
-
-            Debug.Log("Load complete");
-
-            return data;
-        }
-        else
-        {
-            Debug.LogError("Could not open Fixed Camera Control Data");
-            return null;
-        }
-    }
-
-    public static void SaveFixedCameraControlData(string filepath, Dictionary<string, Tuple<Vector3, Vector3>> fixedPositions)
-    {
-        if (FileManager.WriteToFile(filepath, ToJson(fixedPositions)))
-        {
-            Debug.Log("Save successful");
-        }
-        else
-        {
-            Debug.LogError("Could not save Fixed Camera Control Data");
-        }
+        Debug.Log("Opening text asset");
+        TextAsset targetFile = Resources.Load<TextAsset>(filePath);
+        Debug.Log(targetFile.name);
+        return FromJson(targetFile.text);
     }
 }

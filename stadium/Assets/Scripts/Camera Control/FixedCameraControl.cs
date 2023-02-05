@@ -12,8 +12,7 @@ public class FixedCameraControl : MonoBehaviour
     public Vector3 startRotation;
     public float speed;
 
-    private Dictionary<string, Tuple<Vector3, Vector3>> positions =
-        new Dictionary<string, Tuple<Vector3, Vector3>>();
+    private Dictionary<string, Tuple<Vector3, Vector3>> fixedViews;
     private int currentPosition;
 
     private Vector3 targetPosition;
@@ -21,14 +20,8 @@ public class FixedCameraControl : MonoBehaviour
 
     private void Start()
     {
-        Vector3 rotationVector = new Vector3(10f, -90f, 0);
-        positions.Add("Default", new Tuple<Vector3, Vector3>(startPosition, startRotation));
-        positions.Add("Section 28", new Tuple<Vector3, Vector3>(new Vector3(-8.97f, 3.0f, -10.02f), rotationVector));
-        positions.Add("Section 29", new Tuple<Vector3, Vector3>(new Vector3(-9.02f, 3.0f, -4.34f), rotationVector));
-
-        List<string> keyList = new List<string>(this.positions.Keys);
-        UpdateUI(keyList[currentPosition]);
-        MoveTo(positions["Default"].Item1, positions["Default"].Item2);
+        fixedViews = FixedCameraControlData.LoadFixedCameraControlData();
+        SetupDefaultFixedView();
     }
 
     private void Update()
@@ -37,9 +30,16 @@ public class FixedCameraControl : MonoBehaviour
         MainCamera.transform.rotation = Quaternion.Lerp(MainCamera.transform.rotation, targetRotation, speed * Time.deltaTime);
     }
 
+    private void SetupDefaultFixedView()
+    {
+        List<string> keyList = new List<string>(this.fixedViews.Keys);
+        UpdateUI(keyList[currentPosition]);
+        MoveTo(fixedViews["Default"].Item1, fixedViews["Default"].Item2);
+    }
+
     public void ChangePositionRight()
     {
-        List<string> keyList = new List<string>(this.positions.Keys);
+        List<string> keyList = new List<string>(this.fixedViews.Keys);
         if (currentPosition + 1 == keyList.Count)
         {
             currentPosition = 0;
@@ -51,7 +51,7 @@ public class FixedCameraControl : MonoBehaviour
 
         string newPositionName = keyList[currentPosition];
 
-        Tuple<Vector3, Vector3> transformData = positions[newPositionName];
+        Tuple<Vector3, Vector3> transformData = fixedViews[newPositionName];
 
         UpdateUI(newPositionName);
         MoveTo(transformData.Item1, transformData.Item2);
@@ -59,7 +59,7 @@ public class FixedCameraControl : MonoBehaviour
 
     public void ChangePositionLeft()
     {
-        List<string> keyList = new List<string>(this.positions.Keys);
+        List<string> keyList = new List<string>(this.fixedViews.Keys);
         if (currentPosition == 0)
         {
             currentPosition = keyList.Count - 1;
@@ -71,7 +71,7 @@ public class FixedCameraControl : MonoBehaviour
 
         string newPositionName = keyList[currentPosition];
 
-        Tuple<Vector3, Vector3> transformData = positions[newPositionName];
+        Tuple<Vector3, Vector3> transformData = fixedViews[newPositionName];
 
         UpdateUI(newPositionName);
         MoveTo(transformData.Item1, transformData.Item2);
