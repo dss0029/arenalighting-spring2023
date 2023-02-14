@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638109577470964158
-    m_Hash: 3927910507
+      ticks: 638115055359534957
+    m_Hash: 1030787653
   m_LockFileStatus:
     m_FilePath: D:/GitHub/arenalighting-spring2023/stadium/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638109577471432896
-    m_Hash: 361658639
+      ticks: 638115055359564572
+    m_Hash: 2502031403
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:

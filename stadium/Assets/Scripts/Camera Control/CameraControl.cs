@@ -10,6 +10,7 @@ public class CameraControl : MonoBehaviour
     public TMP_Text cameraControlTypeText;
     public GameObject fixedCameraPositionPanel;
     public GameObject dynamicCameraControlPanel;
+    public GameObject freeCameraControl;
 
     private void Start()
     {
@@ -49,20 +50,20 @@ public class CameraControl : MonoBehaviour
         if (cameraViewMode == "Fixed")
         {
             DisableDynamicMode();
-            // DisableFreeMode();
+            DisableFreeMode();
             EnableFixedMode();
         }
         else if (cameraViewMode == "Dynamic")
         {
             DisableFixedMode();
-            // DisableFreeMode();
+            DisableFreeMode();
             EnableDynamicMode();
         }
         else
         {
             DisableFixedMode();
             DisableDynamicMode();
-            // EnableFreeMode();
+            EnableFreeMode();
         }
     }
 
@@ -84,5 +85,15 @@ public class CameraControl : MonoBehaviour
     private void DisableDynamicMode()
     {
         dynamicCameraControlPanel.SetActive(false);
+    }
+
+    private void EnableFreeMode()
+    {
+        freeCameraControl.SetActive(true);
+    }
+
+    private void DisableFreeMode()
+    {
+        freeCameraControl.SetActive(false);
     }
 }
