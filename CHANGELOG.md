@@ -11,12 +11,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Basic light color control.
 - Basic light intensity control (such as fade in, fade out and blink).
-- Basic camera control.
+
 
 ### Changed
 
 - More light arrangements in the stadium.
-- Improved light GameModel. 
+- Improved light GameModel.
+
+## [0.1.0] - 2023-02-18
+
+### Added
+- Basic camera control (Fixed, Dynamic and Free mode).
 
 ## [0.0.1] - 2023-02-01
 
