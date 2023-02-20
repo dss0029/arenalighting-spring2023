@@ -47,10 +47,12 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\buttonController.cs" />
      <Compile Include="Assets\Scripts\movement.cs" />
      <Compile Include="Assets\Scripts\cameraControls.cs" />
      <Compile Include="Assets\Scripts\LEDEffects.cs" />
      <Compile Include="Assets\Scripts\colorButton.cs" />
+     <Compile Include="Assets\Scripts\inputReader.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

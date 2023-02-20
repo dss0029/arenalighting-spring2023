@@ -34,10 +34,11 @@ public class buttonController : MonoBehaviour
         GameObject[] allLEDs;
         tag = "LED";
         allLEDs = GameObject.FindGameObjectsWithTag(tag);
-        newCol = new Color(0.01176471f, 0.1411765f, 0.3019608f, 1f);
+        newCol = new Color(0.01176471f, 0.1411765f, 0.3019608f, .5f);
         foreach (GameObject LED in allLEDs)
         {
             LED.GetComponent<Renderer>().material.color = newCol;
+            LED.GetComponent<Renderer>().material.SetColor("_EmissionColor", newCol);
         }
     }
 
@@ -49,10 +50,11 @@ public class buttonController : MonoBehaviour
         GameObject[] allLEDs;
         tag = "LED";
         allLEDs = GameObject.FindGameObjectsWithTag(tag);
-        newCol = new Color(0.2862745f, 0.4313726f, 0.6117647f, 1f);
+        newCol = new Color(0.2862745f, 0.4313726f, 0.6117647f, .5f);
         foreach (GameObject LED in allLEDs)
         {
             LED.GetComponent<Renderer>().material.color = newCol;
+            LED.GetComponent<Renderer>().material.SetColor("_EmissionColor", newCol);
         }
     }
 
@@ -64,10 +66,11 @@ public class buttonController : MonoBehaviour
         GameObject[] allLEDs;
         tag = "LED";
         allLEDs = GameObject.FindGameObjectsWithTag(tag);
-        newCol = new Color(0.8666667f, 0.3333333f, 0.04705882f, .0f);
+        newCol = new Color(0.8666667f, 0.3333333f, 0.04705882f, .5f);
         foreach (GameObject LED in allLEDs)
         {
             LED.GetComponent<Renderer>().material.color = newCol;
+            LED.GetComponent<Renderer>().material.SetColor("_EmissionColor", newCol);
         }
     }
 
@@ -79,10 +82,11 @@ public class buttonController : MonoBehaviour
         GameObject[] allLEDs;
         tag = "LED";
         allLEDs = GameObject.FindGameObjectsWithTag(tag);
-        newCol = new Color(0.9647059f, 0.5019608f, 0.1490196f, .0f);
+        newCol = new Color(0.9647059f, 0.5019608f, 0.1490196f, .5f);
         foreach (GameObject LED in allLEDs)
         {
             LED.GetComponent<Renderer>().material.color = newCol;
+            LED.GetComponent<Renderer>().material.SetColor("_EmissionColor", newCol);
         }
     }
 
