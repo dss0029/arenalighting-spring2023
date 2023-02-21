@@ -13,11 +13,17 @@ public class LEDEffects : MonoBehaviour
     public string LEDcolor;
     void Start()
     {
+        Color startCol;
+        // string htmlValue = "#03244d";
+        string tag;
+        GameObject[] allLEDs;
         tag = "LED";
         allLEDs = GameObject.FindGameObjectsWithTag(tag);
-        foreach(GameObject LED in allLEDs)
+        startCol = new Color(0.2862745f, 0.4313726f, 0.6117647f, .5f);
+        foreach (GameObject LED in allLEDs)
         {
-            LED.GetComponent<Renderer>().material.color = Color.blue;
+            LED.GetComponent<Renderer>().material.color = startCol;
+            LED.GetComponent<Renderer>().material.SetColor("_EmissionColor", startCol);
         }
         LEDcolor = "blue";
     }
@@ -26,22 +32,27 @@ public class LEDEffects : MonoBehaviour
     void Update()
     {
         tag = "LED";
+        Color newCol;
         allLEDs = GameObject.FindGameObjectsWithTag(tag);
         if (Input.GetKey(KeyCode.X))
             {
                 if (LEDcolor == "blue")
                 {
+                    newCol = new Color(0.8666667f, 0.3333333f, 0.04705882f, .5f);
                     foreach (GameObject LED in allLEDs)
                     {
-                        LED.GetComponent<Renderer>().material.color = Color.green;
+                        LED.GetComponent<Renderer>().material.color = newCol;
+                        LED.GetComponent<Renderer>().material.SetColor("_EmissionColor", newCol);
                     }
-                LEDcolor = "green";
+                LEDcolor = "orange";
                 }
                 else
                 {
+                    newCol = new Color(0.2862745f, 0.4313726f, 0.6117647f, .5f);
                     foreach (GameObject LED in allLEDs)
                     {
-                        LED.GetComponent<Renderer>().material.color = Color.blue;
+                        LED.GetComponent<Renderer>().material.color = newCol;
+                        LED.GetComponent<Renderer>().material.SetColor("_EmissionColor", newCol);
                     }
                 LEDcolor = "blue";
                 }
