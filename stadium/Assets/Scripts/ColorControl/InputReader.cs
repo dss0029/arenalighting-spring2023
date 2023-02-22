@@ -23,6 +23,7 @@ public class InputReader : MonoBehaviour
             foreach (GameObject LED in allLEDs)
             {
                 LED.GetComponent<Renderer>().material.color = newCol;
+                LED.GetComponent<Renderer>().material.SetColor("_EmissionColor", newCol);
             }
         }
         else
