@@ -11,11 +11,11 @@ public class GlowFadeController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        fadeButton.onClick.AddListener(fade);
-        glowButton.onClick.AddListener(glow);
+        fadeButton.onClick.AddListener(Fade);
+        glowButton.onClick.AddListener(Glow);
     }
 
-    void fade()
+    void Fade()
     {
         GameObject[] allLEDs;
         string tag = "LED";
@@ -27,7 +27,7 @@ public class GlowFadeController : MonoBehaviour
         }
     }
 
-    void glow()
+    void Glow()
     {
         GameObject[] allLEDs;
         string tag = "LED";
