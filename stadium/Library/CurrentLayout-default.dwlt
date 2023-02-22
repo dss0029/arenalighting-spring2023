@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Scene
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 521}
   m_MaxSize: {x: 10000, y: 10000}
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_MinSize: {x: 679, y: 471}
   m_MaxSize: {x: 14001, y: 14021}
   vertical: 0
-  controlID: 35182
+  controlID: 476
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 471}
   m_MaxSize: {x: 10000, y: 14021}
   vertical: 1
-  controlID: 35183
+  controlID: 477
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 35184
+  controlID: 478
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -400,7 +400,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 18c3ffff68fbffff50670000d46a0000786b000000d900006e010100
+      m_ExpandedIDs: 70fbffff9c490000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -455,14 +455,14 @@ MonoBehaviour:
   m_OverrideSceneCullingMask: 6917529027641081856
   m_SceneIsLit: 1
   m_SceneLighting: 1
-  m_2DMode: 1
+  m_2DMode: 0
   m_isRotationLocked: 0
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 914.6015, y: 703.1976, z: -1214.6786}
+    m_Target: {x: -17.465122, y: 0.5799726, z: -9.16733}
     speed: 2
-    m_Value: {x: 880.6748, y: 697.742, z: -1212.5077}
+    m_Value: {x: -17.465122, y: 0.5799726, z: -9.16733}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -491,17 +491,17 @@ MonoBehaviour:
       m_Size: {x: 1, y: 1}
     yGrid:
       m_Fade:
-        m_Target: 0
+        m_Target: 1
         speed: 2
-        m_Value: 0
+        m_Value: 1
       m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.4}
       m_Pivot: {x: 0, y: 0, z: 0}
       m_Size: {x: 1, y: 1}
     zGrid:
       m_Fade:
-        m_Target: 1
+        m_Target: 0
         speed: 2
-        m_Value: 1
+        m_Value: 0
       m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.4}
       m_Pivot: {x: 0, y: 0, z: 0}
       m_Size: {x: 1, y: 1}
@@ -509,17 +509,17 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0, y: 0, z: 0, w: 1}
+    m_Target: {x: -0.15641044, y: 0.70006496, z: -0.16156113, w: -0.6777438}
     speed: 2
-    m_Value: {x: 0, y: 0, z: 0, w: 1}
+    m_Value: {x: -0.15641044, y: 0.70006496, z: -0.16156113, w: -0.6777438}
   m_Size:
-    m_Target: 504.12003
+    m_Target: 6.5635414
     speed: 2
-    m_Value: 482.4115
+    m_Value: 6.5635414
   m_Ortho:
-    m_Target: 1
+    m_Target: 0
     speed: 2
-    m_Value: 1
+    m_Value: 0
   m_CameraSettings:
     m_Speed: 1.0234857
     m_SpeedNormalized: 0.5114986
@@ -603,22 +603,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Packages/com.unity.searcher/Editor/Resources/FlatSkin/Font
+    - Assets/3d-assets
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 67
   m_LastFolders:
-  - Packages/com.unity.searcher/Editor/Resources/FlatSkin/Font
+  - Assets/3d-assets
   m_LastFoldersGridSize: 67
   m_LastProjectPath: D:\GitHub\arenalighting-spring2023\stadium
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 64}
-    m_SelectedIDs: 32bb0200
-    m_LastClickedID: 178994
-    m_ExpandedIDs: 0000000096220100b4220100b622010034bb020036bb020038bb02003abb020000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: 705d0000
+    m_LastClickedID: 23920
+    m_ExpandedIDs: 00000000685d00006a5d00006c5d000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -646,7 +646,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000096220100b4220100b622010000ca9a3b
+    m_ExpandedIDs: 00000000685d00006a5d00006c5d000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
