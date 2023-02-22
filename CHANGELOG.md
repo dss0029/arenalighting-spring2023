@@ -7,16 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added 
-
-- Basic light color control.
-- Basic light intensity control (such as fade in, fade out and blink).
-
+### Added
+- TBD.
 
 ### Changed
 
 - More light arrangements in the stadium.
 - Improved light GameModel.
+
+## [0.2.0] - 2023-02-22
+
+### Added
+- Basic Color Control.
+- Basic Intensity Control.
+
+### Changed
+
+- Combined all UI elements to the same Canvas.
+- Setup naming convention to the Camel-style.
+- Rearrage UI elements.
+- Organize scripts into corresponding folders.
 
 ## [0.1.0] - 2023-02-18
 
