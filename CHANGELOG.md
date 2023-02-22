@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Combined all UI elements to the same Canvas.
 - Setup naming convention to the Camel-style.
 - Rearrage UI elements.
+- Organize scripts into corresponding folders.
 
 ## [0.1.0] - 2023-02-18
 
