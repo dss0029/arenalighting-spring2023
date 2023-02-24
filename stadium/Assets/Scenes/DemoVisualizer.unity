@@ -17871,7 +17871,7 @@ GameObject:
   - component: {fileID: 768713974}
   - component: {fileID: 768713973}
   m_Layer: 0
-  m_Name: LED Controller
+  m_Name: LEDController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22557,7 +22557,7 @@ GameObject:
   - component: {fileID: 989157160}
   - component: {fileID: 989157159}
   m_Layer: 0
-  m_Name: Post Processing
+  m_Name: PostProcessing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36222,7 +36222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b9fc38438381a47b7adbbe18d6178a8d, type: 3}
       propertyPath: m_Name
-      value: Auburn Stadium_3Dmodel
+      value: Auburn_Stadium_3Dmodel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9fc38438381a47b7adbbe18d6178a8d, type: 3}
