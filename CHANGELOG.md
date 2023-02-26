@@ -8,12 +8,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- TBD.
+- Color transitioning (gradient).
+- Light pulsing.
+- Light music/song follow.
 
 ### Changed
 
 - More light arrangements in the stadium.
-- Improved light GameModel.
+- Improved light GameModel. Created a prefab.
+
+## [0.2.1] - 2023-02-25
+
+### Added
+- Added gitignore to the project folder.
+
+### Changed
+- Updated all GameObjects names to the camel-style naming style format.
+- Organized assets into corresponding folders (renamed a couple of folders and files).
+- Renamed current `demo` scene into `DemoVisualizer`.
+- Updated gitignore in the root folder.
+
+### Removed
+- Library folder.
+- Temp folder.
+- Objects folder.
+- Logs folder.
+- User Settings folder.
+- All .*csproj files.
 
 ## [0.2.0] - 2023-02-22
 
@@ -46,6 +67,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Scaled stadium size from 1 to 100.
 - Better re-arranged lights for one section.
 
-[0.0.1]: https://github.com/dss0029/arenalighting-spring2023/releases/tag/v0.0.1
-[0.1.0]: https://github.com/dss0029/arenalighting-spring2023/releases/tag/v0.1.0
+
+[0.2.1]: https://github.com/dss0029/arenalighting-spring2023/releases/tag/v0.2.1
 [0.2.0]: https://github.com/dss0029/arenalighting-spring2023/releases/tag/v0.2.0
+[0.1.0]: https://github.com/dss0029/arenalighting-spring2023/releases/tag/v0.1.0
+[0.0.1]: https://github.com/dss0029/arenalighting-spring2023/releases/tag/v0.0.1
