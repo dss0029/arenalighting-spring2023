@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Organized assets into corresponding folders (renamed a couple of folders and files).
 - Renamed current `demo` scene into `DemoVisualizer`.
 - Updated gitignore in the root folder.
+- Update readme file with more information.
 
 ### Removed
 - Library folder.
