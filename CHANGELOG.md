@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - More light arrangements in the stadium.
 - Improved light GameModel. Created a prefab.
 
-## [0.2.1] - 2023-02-25
+## [0.2.1] - 2023-02-28
 
 ### Added
 - Added gitignore to the project folder.
