@@ -17,8 +17,8 @@ public class MusicLightController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tag = "LED";
-        allLEDs = GameObject.FindGameObjectsWithTag(tag);
+        string ledTag = "LED";
+        allLEDs = GameObject.FindGameObjectsWithTag(ledTag);
     }
 
     // Update is called once per frame
@@ -41,14 +41,12 @@ public class MusicLightController : MonoBehaviour
             //Transform currentLedTransform = allLEDs[i].GetComponent<Transform>();
             //currentLedTransform.localScale = new Vector3(scaleValue, scaleValue, scaleValue);
 
-            // Change transparency of the led
-
+            // Change transparency of the led, for some reason it gets game object MusicLightController
             Color currentLedColor = allLEDs[i].GetComponent<Renderer>().material.color;
             Color newLedColor = new Color(currentLedColor.r, currentLedColor.g, currentLedColor.b, (audioPeer.audioBand[i % 8]));
 
             allLEDs[i].GetComponent<Renderer>().material.color = newLedColor;
             allLEDs[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", newLedColor);
-
         }
     }
 }
