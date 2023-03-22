@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -17,6 +18,8 @@ public class MusicToLight : MonoBehaviour
     public GameObject pauseButton;
     public GameObject stopButton;
     public GameObject loadMusicButton;
+    public GameObject musicToLightModeText;
+    public MusicToLightModeController musicToLightModeController;
 
     private GameObject[] allLEDs;
     bool randomLight = false;
@@ -30,33 +33,63 @@ public class MusicToLight : MonoBehaviour
 
     void Update()
     {
-        if (audioPeer.audioSource.isPlaying) { 
+        string currentMusicToLightMode = musicToLightModeController.getCurrentMode();
+        if (currentMusicToLightMode == "Linear") {
+            linearMode();
+        }
+        else if (currentMusicToLightMode == "Random")
+        {
+            randomMode();
+        }
+        else if (currentMusicToLightMode == "Amplitude")
+        {
+            amplitudeMode();
+        }
+    }
+
+    void linearMode()
+    {
+        if (audioPeer.audioSource.isPlaying)
+        {
             for (int i = 0; i < allLEDs.Length; i++)
             {
-                int bandIndex = i;
-                if (randomLight)
-                {
-                    bandIndex = Random.Range(0, 8);
-                }
+                // Change transparency of the current led
+                Color currentLedColor = allLEDs[i].GetComponent<Renderer>().material.color;
+                Color newLedColor = new Color(currentLedColor.r, currentLedColor.g, currentLedColor.b, (audioPeer.audioBand[i % 8]));
 
-                // Transform current led
-                //float scaleValue;
-                //if (useBuffer)
-                //{
-                //    // Debug.Log(audioPeer.audioBandBuffer[1]);
-                //    scaleValue = (audioPeer.audioBandBuffer[i % 8] * (maxScale - minScale)) + minScale;
-                //}
-                //else
-                //{
-                //    scaleValue = (audioPeer.audioBand[i % 8] * (maxScale - minScale)) + minScale;
-                //}
-                //Transform currentLedTransform = allLEDs[i].GetComponent<Transform>();
-                //currentLedTransform.localScale = new Vector3(scaleValue, scaleValue, scaleValue);
+                allLEDs[i].GetComponent<Renderer>().material.color = newLedColor;
+                allLEDs[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", newLedColor);
+            }
+        }
+    }
 
+    void randomMode()
+    {
+        if (audioPeer.audioSource.isPlaying)
+        {
+            for (int i = 0; i < allLEDs.Length; i++)
+            {
+                int bandIndex = Random.Range(0, 8);
 
                 // Change transparency of the current led
                 Color currentLedColor = allLEDs[i].GetComponent<Renderer>().material.color;
                 Color newLedColor = new Color(currentLedColor.r, currentLedColor.g, currentLedColor.b, (audioPeer.audioBand[bandIndex % 8]));
+
+                allLEDs[i].GetComponent<Renderer>().material.color = newLedColor;
+                allLEDs[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", newLedColor);
+            }
+        }
+    }
+
+    void amplitudeMode()
+    {
+        if (audioPeer.audioSource.isPlaying)
+        {
+            for (int i = 0; i < allLEDs.Length; i++)
+            {
+                // Change transparency of the current led
+                Color currentLedColor = allLEDs[i].GetComponent<Renderer>().material.color;
+                Color newLedColor = new Color(currentLedColor.r, currentLedColor.g, currentLedColor.b, (audioPeer.amplitudeBuffer));
 
                 allLEDs[i].GetComponent<Renderer>().material.color = newLedColor;
                 allLEDs[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", newLedColor);
