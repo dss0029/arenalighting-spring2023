@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -249,5 +250,30 @@ public class AudioPeer : MonoBehaviour
         {
             freqBandHighest[i] = audioProfile;
         }
+    }
+
+    private void Reset()
+    {
+        Array.Clear(audioBand, 0, audioBand.Length);
+        Array.Clear(audioBandBuffer, 0, audioBandBuffer.Length);
+        Array.Clear(audioBand64, 0, audioBand64.Length);
+        Array.Clear(audioBandBuffer64, 0, audioBandBuffer64.Length);
+        amplitude = 0f;
+        amplitudeBuffer = 0f;
+        Array.Clear(samplesLeft, 0, samplesLeft.Length);
+        Array.Clear(samplesRight, 0, samplesRight.Length);
+        Array.Clear(freqBand, 0, freqBand.Length);
+        Array.Clear(bandBuffer, 0, bandBuffer.Length);
+        Array.Clear(bufferDecrease, 0, bufferDecrease.Length);
+        Array.Clear(freqBandHighest, 0, freqBandHighest.Length);
+        Array.Clear(freqBand64, 0, freqBand64.Length);
+        Array.Clear(bandBuffer64, 0, bandBuffer64.Length);
+        Array.Clear(bufferDecrease64, 0, bufferDecrease64.Length);
+        Array.Clear(freqBandHighest64, 0, freqBandHighest64.Length);
+    }
+
+    public void ResetValues()
+    {
+        Reset();
     }
 }
