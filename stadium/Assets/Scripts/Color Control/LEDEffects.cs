@@ -9,7 +9,7 @@ public class LEDEffects : MonoBehaviour
 {
 
     public GameObject[] allLEDs;
-    public string ledTag;
+    public string tag;
     public string LEDcolor;
     void Start()
     {
@@ -31,9 +31,9 @@ public class LEDEffects : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ledTag = "LED";
+        tag = "LED";
         Color newCol;
-        allLEDs = GameObject.FindGameObjectsWithTag(ledTag);
+        allLEDs = GameObject.FindGameObjectsWithTag(tag);
         if (Input.GetKey(KeyCode.X))
             {
                 if (LEDcolor == "blue")
