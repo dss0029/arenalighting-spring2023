@@ -24,6 +24,8 @@ public class MusicToLight : MonoBehaviour
     private GameObject[] allLEDs;
     bool randomLight = false;
 
+    private float musicVolume = 1.0f;
+
     void Start()
     {
         audioPeer.audioSource.playOnAwake = false;
@@ -45,6 +47,9 @@ public class MusicToLight : MonoBehaviour
         {
             amplitudeMode();
         }
+
+        // Update volume
+        audioPeer.audioSource.volume = musicVolume;
     }
 
     void linearMode()
@@ -178,5 +183,27 @@ public class MusicToLight : MonoBehaviour
     public void OnToggleRandom()
     {
         randomLight = !randomLight;
+    }
+
+    public void OnUpdateVolume(float volume)
+    {
+        musicVolume = volume;
+    }
+
+    public void OnUpdateMusicTime(float range)
+    {
+        // range is between 0 and 1
+        float musicTime = audioPeer.audioSource.clip.length * range;
+        audioPeer.audioSource.time = musicTime;
+    }
+
+    public float GetCurrentAudioTime()
+    {
+        return audioPeer.audioSource.time;
+    }
+
+    public float GetTotalAudioTime()
+    {
+        return audioPeer.audioSource.clip.length;
     }
 }
