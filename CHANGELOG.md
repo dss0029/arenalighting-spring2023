@@ -17,6 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - More light arrangements in the stadium.
 - Improved light GameModel. Created a prefab.
 
+## [0.5.0] - 2023-03-30
+
+### Added
+- Music Synchronizer.
+
 ## [0.4.0] - 2023-03-21
 
 ### Added
@@ -79,6 +84,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Better re-arranged lights for one section.
 
 
+[0.5.0]: https://github.com/dss0029/arenalighting-spring2023/releases/tag/v0.5.0
 [0.4.0]: https://github.com/dss0029/arenalighting-spring2023/releases/tag/v0.4.0
 [0.3.0]: https://github.com/dss0029/arenalighting-spring2023/releases/tag/v0.3.0
 [0.2.1]: https://github.com/dss0029/arenalighting-spring2023/releases/tag/v0.2.1
