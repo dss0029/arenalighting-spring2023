@@ -14,12 +14,17 @@ public class InputReader : MonoBehaviour
     public Button submitButton;
     public Color inputColor;
     public bool badInput;
+    public float fadeDuration;
+    public InputField speedInput;
+    public float fadeTime;
 
     void Start()
     {
+        fadeDuration = 1;
         var input = gameObject.GetComponent<InputField>();
         input.onEndEdit.AddListener(SubmitName);  // This also works
         submitButton.onClick.AddListener(buttonPress);
+        speedInput.onEndEdit.AddListener(setSpeed);
         badInput = true;
 
     }
@@ -32,7 +37,8 @@ public class InputReader : MonoBehaviour
         allLEDs = GameObject.FindGameObjectsWithTag(tag);
         if (fading)
         {
-            fadeFrame = fadeFrame + 0.1f;
+            fadeTime += Time.deltaTime;
+            fadeFrame = fadeTime / fadeDuration;
             Color frameColor = gradient.Evaluate(fadeFrame);
             foreach (GameObject LED in allLEDs)
             {
@@ -40,13 +46,19 @@ public class InputReader : MonoBehaviour
                 LED.GetComponent<Renderer>().material.SetColor("_EmissionColor", frameColor);
             }
             Color currentColor = LEDTemplate.GetComponent<Renderer>().material.color;
-            if (currentColor == fadeEnd || fadeFrame > 2.0f)
+            if (currentColor == fadeEnd || fadeFrame >= 1)
             {
                 fading = false;
                 Debug.Log("Done");
             }
         }
     }
+
+    void setSpeed(string arg0)
+    {
+        fadeDuration = float.Parse(arg0);
+    }
+
 
     void buttonPress()
     {
