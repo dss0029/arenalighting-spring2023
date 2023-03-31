@@ -73,7 +73,6 @@ public class GlowFadeController : MonoBehaviour
         GameObject[] allLEDs;
         string tag = "LED";
         allLEDs = GameObject.FindGameObjectsWithTag(tag);
-        
 
         if (pulseToggle.isOn)
         {
@@ -83,6 +82,7 @@ public class GlowFadeController : MonoBehaviour
             {
                 emissiveMaterial = LED.GetComponent<Renderer>().material;
                 startingColor = LED.GetComponent<Renderer>().material.color;
+
 
                 float brightness = BrightnessCurve.Evaluate(scaledTime);
                 Color color = startingColor;
