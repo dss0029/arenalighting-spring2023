@@ -13,19 +13,22 @@ public class GlowFadeController : MonoBehaviour
     public Toggle pulseToggle;
 
 
-    public float pulseSpeed = 1.0f;
+    public float pulseSpeed;
     public AnimationCurve BrightnessCurve;
     public Color startingColor;
     public bool flashing;
-
+    public InputField pulseSpeedInput;
     Material emissiveMaterial;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        pulseSpeed = 1.0f;
         fadeButton.onClick.AddListener(fade);
         glowButton.onClick.AddListener(glow);
         flashButton.onClick.AddListener(flash);
+        pulseSpeedInput.onEndEdit.AddListener(setPulseSpeed);
         flashing = false;
     }
 
@@ -65,6 +68,11 @@ public class GlowFadeController : MonoBehaviour
         {
             CancelInvoke();
         }
+    }
+
+    void setPulseSpeed(string speed)
+    {
+        pulseSpeed = float.Parse(speed);
     }
 
     // Update is called once per frame
