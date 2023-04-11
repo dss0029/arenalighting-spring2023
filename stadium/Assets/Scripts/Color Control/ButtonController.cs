@@ -16,6 +16,7 @@ public class ButtonController : MonoBehaviour
     public Button auBlue2;
     public Button auOrange1;
     public Button auOrange2;
+    public Button randomButton;
     public GameObject LEDTemplate;
     public Toggle fadeToggle;
     Gradient gradient;
@@ -27,6 +28,8 @@ public class ButtonController : MonoBehaviour
     public InputField speedInput;
     public float fadeDuration;
     public float fadeTime;
+    public Toggle randomToggle;
+    public bool randomizing;
 
     void Start()
     {
@@ -37,7 +40,9 @@ public class ButtonController : MonoBehaviour
         auBlue2.onClick.AddListener(SetBlue2);
         auOrange1.onClick.AddListener(SetOrange1);
         auOrange2.onClick.AddListener(SetOrange2);
+        randomButton.onClick.AddListener(setRandom);
         speedInput.onEndEdit.AddListener(setSpeed);
+        randomizing = false;
     }
 
     void Update()
@@ -46,6 +51,20 @@ public class ButtonController : MonoBehaviour
         GameObject[] allLEDs;
         tag = "LED";
         allLEDs = GameObject.FindGameObjectsWithTag(tag);
+        if (randomToggle.isOn)
+        {
+            if (!randomizing)
+            {
+                InvokeRepeating("setRandom", 0.0f, 0.5f);
+                randomizing = true;
+            } 
+        }
+        else
+        {
+            CancelInvoke();
+            randomizing = false;
+        }
+
         if (fading)
         {
             fadeTime += Time.deltaTime;
@@ -242,5 +261,33 @@ public class ButtonController : MonoBehaviour
         }
     }
 
-
+    void setRandom()
+    {
+        Color newCol;
+        // string htmlValue = "#03244d";
+        string tag;
+        GameObject[] allLEDs;
+        tag = "LED";
+        allLEDs = GameObject.FindGameObjectsWithTag(tag);
+        // newCol = new Color(0.9647059f, 0.5019608f, 0.1490196f, .5f);
+        foreach (GameObject LED in allLEDs)
+        {
+            int randomCol = Random.Range(1, 6);
+            if (randomCol < 3)
+            {
+                newCol = new Color(0.2862745f, 0.4313726f, 0.6117647f, .5f);
+            }
+            else if (randomCol > 4)
+            {
+                newCol = new Color(1.0f, 1.0f, 1.0f, .5f);
+            }
+            else
+            {
+                newCol = new Color(0.8666667f, 0.3333333f, 0.04705882f, .5f);
+            }
+            LED.GetComponent<Renderer>().material.color = newCol;
+            LED.GetComponent<Renderer>().material.SetColor("_EmissionColor", newCol);
+        }
+    }
 }
+
