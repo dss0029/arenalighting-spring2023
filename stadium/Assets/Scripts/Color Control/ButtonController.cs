@@ -24,15 +24,20 @@ public class ButtonController : MonoBehaviour
     public bool fading;
     public Color fadeEnd;
     public float fadeFrame;
+    public InputField speedInput;
+    public float fadeDuration;
+    public float fadeTime;
 
     void Start()
     {
         fadeFrame = 0.0f;
+        fadeDuration = 1.0f;
         //Calls the TaskOnClick/TaskWithParameters/ButtonClicked method when you click the Button
         auBlue1.onClick.AddListener(SetBlue1);
         auBlue2.onClick.AddListener(SetBlue2);
         auOrange1.onClick.AddListener(SetOrange1);
         auOrange2.onClick.AddListener(SetOrange2);
+        speedInput.onEndEdit.AddListener(setSpeed);
     }
 
     void Update()
@@ -43,7 +48,8 @@ public class ButtonController : MonoBehaviour
         allLEDs = GameObject.FindGameObjectsWithTag(tag);
         if (fading)
         {
-            fadeFrame = fadeFrame + 0.1f;
+            fadeTime += Time.deltaTime;
+            fadeFrame = fadeTime / fadeDuration;
             Color frameColor = gradient.Evaluate(fadeFrame);
             foreach (GameObject LED in allLEDs)
             {
@@ -54,9 +60,13 @@ public class ButtonController : MonoBehaviour
             if (currentColor == fadeEnd)
             {
                 fading = false;
-                Debug.Log("Done");
             }
         }
+    }
+
+    void setSpeed(string arg0)
+    {
+        fadeDuration = float.Parse(arg0);
     }
 
     void SetBlue1()
@@ -87,17 +97,18 @@ public class ButtonController : MonoBehaviour
             colorKey[0].color = startCol;
             colorKey[0].time = 0.0f;
             colorKey[1].color = endCol;
-            colorKey[1].time = 1.0f;
+            colorKey[1].time = fadeDuration;
 
             alphaKey = new GradientAlphaKey[2];
             alphaKey[0].alpha = 0.5f;
             alphaKey[0].time = 0.0f;
             alphaKey[1].alpha = 0.5f;
-            alphaKey[1].time = 1.0f;
+            alphaKey[1].time = fadeDuration;
 
             gradient.SetKeys(colorKey, alphaKey);
             fadeEnd = endCol;
             fadeFrame = 0.0f;
+            fadeTime = 0.0f;
             fading = true;
         }
     }
@@ -140,6 +151,7 @@ public class ButtonController : MonoBehaviour
             gradient.SetKeys(colorKey, alphaKey);
             fadeEnd = endCol;
             fadeFrame = 0.0f;
+            fadeTime = 0.0f;
             fading = true;
         }
     }
@@ -182,6 +194,7 @@ public class ButtonController : MonoBehaviour
             gradient.SetKeys(colorKey, alphaKey);
             fadeEnd = endCol;
             fadeFrame = 0.0f;
+            fadeTime = 0.0f;
             fading = true;
         }
     }
@@ -224,6 +237,7 @@ public class ButtonController : MonoBehaviour
             gradient.SetKeys(colorKey, alphaKey);
             fadeEnd = endCol;
             fadeFrame = 0.0f;
+            fadeTime = 0.0f;
             fading = true;
         }
     }
