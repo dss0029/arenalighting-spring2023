@@ -1,7 +1,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -18,8 +17,7 @@ public interface ICameraMovement
     public CameraTransformType transformType { get; }
     public bool smoothnessEnabled { get; set; }
 
-    public abstract Dictionary<string, object> toDict();
-    public abstract ICameraMovement fromDict(Dictionary<string, object> dict);
+    public string ToJson(bool prettyPrint);
 }
 
 public class AdvancedCameraController : MonoBehaviour
@@ -38,6 +36,9 @@ public class AdvancedCameraController : MonoBehaviour
 
     public CameraSequence cameraSequence;
     List<ICameraMovement> cameraTransforms = new List<ICameraMovement>();
+
+    [SerializeField]
+    CameraMovementScrollView cameraMovementScrollView;
 
     void Start()
     {
@@ -64,7 +65,8 @@ public class AdvancedCameraController : MonoBehaviour
         cameraTransforms.Add(new LinearTransform(null, new Vector3(12.8f, 15.7f, -8.1f), null, new Vector3(38.0f, 216.7f, 0.0f), 3));
 
         cameraSequence.sequences = cameraTransforms;
-        Debug.Log("StartCameraSequence Update: " + cameraSequence.sequences.Count);
+
+        cameraMovementScrollView.UpdateCameraMovementList(cameraSequence.sequences);
 
         StartCameraMovementSequence(cameraTransforms);
     }
@@ -121,7 +123,10 @@ public class AdvancedCameraController : MonoBehaviour
 
     public void UpdateSequence(CameraSequence newCameraSequence)
     {
+        if (newCameraSequence == null) return;
+
         Debug.Log("Successfully loaded the sequence!");
         cameraSequence = newCameraSequence;
+        cameraMovementScrollView.UpdateCameraMovementList(cameraSequence.sequences);
     }
 }

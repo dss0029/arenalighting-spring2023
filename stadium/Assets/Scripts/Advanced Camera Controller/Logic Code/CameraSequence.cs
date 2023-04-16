@@ -1,16 +1,15 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using UnityEngine;
 
-public class CameraSequence: ISerializable
+public class CameraSequence
 {
     public string sequenceName { get; set; }
     public List<ICameraMovement> sequences { get; set; }
 
     public CameraSequence()
     {
-        sequenceName = "New Sequence";
+        sequenceName = "New Camera Sequence";
         sequences = new List<ICameraMovement>();
     }
 
@@ -20,69 +19,55 @@ public class CameraSequence: ISerializable
         this.sequences = sequences;
     }
 
-    public void GetObjectData(SerializationInfo info, StreamingContext context)
+    public string ToJson(bool prettyPrint)
     {
-        // Use the AddValue method to specify serialized values.
-        info.AddValue("sequenceName", sequenceName, typeof(string));
-        info.AddValue("sequences", sequences, typeof(List<ICameraMovement>));
-    }
+        string[] sequencesJson = new string[sequences.Count];
 
-    // The special constructor is used to deserialize values.
-    public CameraSequence(SerializationInfo info, StreamingContext context)
-    {
-        // Reset the property value using the GetValue method.
-        sequenceName = (string)info.GetValue("sequenceName", typeof(string));
-        sequences = (List<ICameraMovement>)info.GetValue("sequences", typeof(List<ICameraMovement>));
-    }
-
-    
-    public Dictionary<string, object> toDict() {
-        List<Dictionary<string, object>> sequencesDictionaryList = new List<Dictionary<string, object>>();
-
-        foreach (ICameraMovement cameraMovement in sequences)
+        for(int i = 0; i < sequences.Count; i++)
         {
-            sequencesDictionaryList.Add(cameraMovement.toDict());
+            sequencesJson[i] = sequences[i].ToJson(prettyPrint);
         }
 
-        Dictionary<string, object> cameraSequenceDictionary = new Dictionary<string, object>()
-        {
-            {"sequenceName", sequenceName},
-            {"sequences", sequencesDictionaryList},
-        };
+        SerializableCameraSequence serializableCameraSequence = new SerializableCameraSequence();
+        serializableCameraSequence.sequenceName = sequenceName;
+        serializableCameraSequence.sequences = JsonHelper.ToJson(sequencesJson, prettyPrint);
 
-
-        return cameraSequenceDictionary;
+        serializableCameraSequence.sequenceCount = sequences.Count;
+        
+        string cameraSequnceJson = JsonUtility.ToJson(serializableCameraSequence, prettyPrint);
+        return cameraSequnceJson;
     }
 
-    public static CameraSequence fromDict(Dictionary<string, object> dict)
+    public static CameraSequence FromJson(string json)
     {
-        List<ICameraMovement> newSequences = new List<ICameraMovement>();
+        SerializableCameraSequence serializableCameraSequence = JsonUtility.FromJson<SerializableCameraSequence>(json);
+        string sequenceName = serializableCameraSequence.sequenceName;
+        string[] sequencesJson = JsonHelper.FromJson<string>(serializableCameraSequence.sequences);
 
-        Debug.Log("CameraSequence - fromDict");
+        List<ICameraMovement> cameraMovements = new List<ICameraMovement>();
 
-        List<object> sequencesDictionaryList = (List<object>)dict["sequences"];
-
-        Debug.Log("CameraSequence - Parsed sequencesDictionaryList");
-
-        foreach (Dictionary<string, object> cameraMovementDict in sequencesDictionaryList) {
-            Debug.Log("CameraSequence - Foreach");
-
-            if ((string)cameraMovementDict["transformType"] == "Linear")
+        for (int i = 0; i < serializableCameraSequence.sequenceCount; i++)
+        {
+            if (sequencesJson[i].Contains("Linear"))
             {
-                newSequences.Add(LinearTransform.staticFromDict(cameraMovementDict));
+                cameraMovements.Add(LinearTransform.FromJson(sequencesJson[i]));
             }
-            else if ((string)cameraMovementDict["transformType"] == "Circullar")
+            else if (sequencesJson[i].Contains("Circullar"))
             {
-                newSequences.Add(CircullarTransform.staticFromDict(cameraMovementDict));
+                cameraMovements.Add(CircullarTransform.FromJson(sequencesJson[i]));
             }
         }
 
-        string sequenceName = (string)dict["sequenceName"];
-
-        CameraSequence newCameraSequence = new CameraSequence(sequenceName, newSequences);
-
-        return newCameraSequence;
+        return new CameraSequence(sequenceName, cameraMovements);
     }
+}
+
+[Serializable]
+public class SerializableCameraSequence
+{
+    public string sequenceName;
+    public string sequences;
+    public int sequenceCount;
 }
 
 [Serializable]

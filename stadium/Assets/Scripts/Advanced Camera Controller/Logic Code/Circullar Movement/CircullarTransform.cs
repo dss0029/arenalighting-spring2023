@@ -38,71 +38,54 @@ public class CircullarTransform: ICameraMovement
         this.smoothnessEnabled = smoothnessEnabled;
     }
 
-    public Dictionary<string, object> toDict()
+    public string ToJson(bool prettyPrint)
     {
-        List<float?> targetPositionList = new List<float?>() { null, null, null };
+        SerializableCircullarTransform serializableCircullarTransform = new SerializableCircullarTransform();
 
-        if (targetPosition.HasValue)
-        {
-            targetPositionList = new List<float?>() { targetPosition.Value.x, targetPosition.Value.x, targetPosition.Value.z };
-        }
+        serializableCircullarTransform.transformType = transformType.ToString();
+        serializableCircullarTransform.smoothnessEnabled = smoothnessEnabled;
+        serializableCircullarTransform.targetPosition = SerializeHelper.Vector3ToList(targetPosition);
+        serializableCircullarTransform.startDistanceFromTarget = startDistanceFromTarget;
+        serializableCircullarTransform.endDistanceFromTarget = endDistanceFromTarget;
+        serializableCircullarTransform.startRotation = SerializeHelper.Vector3ToList(startRotation);
+        serializableCircullarTransform.endRotation = SerializeHelper.Vector3ToList(endRotation);
+        serializableCircullarTransform.duration = duration;
+        
 
-        Dictionary<string, object> circullarTransformDictionary = new Dictionary<string, object> {
-            { "transformType", transformType.ToString()},
-            { "smoothnessEnabled", smoothnessEnabled },
-            { "targetPosition", targetPositionList },
-            { "startDistanceFromTarget", startDistanceFromTarget },
-            { "endDistanceFromTarget", endDistanceFromTarget },
-            { "startRotation", new List<float>() { startRotation.x, startRotation.y, startRotation.z } },
-            { "endRotation", new List<float>() { endRotation.x, endRotation.y, endRotation.z } },
-            { "duration", duration },
-        };
-
-        return circullarTransformDictionary;
+        return JsonUtility.ToJson(serializableCircullarTransform, prettyPrint);
     }
 
-    public ICameraMovement fromDict(Dictionary<string, object> dict)
+    public static CircullarTransform FromJson(string json)
     {
-        return staticFromDict(dict);
-    }
+        SerializableCircullarTransform serializableCircullarTransform = JsonUtility.FromJson<SerializableCircullarTransform>(json);
 
-    public static CircullarTransform staticFromDict(Dictionary<string, object> dict)
-    {
-        if ((string)dict["transformType"] == "Circullar")
-        {
-            throw new LinearTransformParseError("Expected transform type \"Linear\", was " + dict["transformType"]);
-        }
+        Vector3? targetPosition = SerializeHelper.ListToNullableVector(serializableCircullarTransform.targetPosition);
 
-        bool smoothnessEnabled = (bool)dict["smoothnessEnabled"];
+        float startDistanceFromTarget = serializableCircullarTransform.startDistanceFromTarget;
+        float endDistanceFromTarget = serializableCircullarTransform.endDistanceFromTarget;
 
-        // Parse start position
-        Vector3? targetPosition = null;
-        List<float> targetPositionList = (List<float>)dict["targetPosition"];
-        if (targetPositionList != null)
-        {
-            targetPosition = new Vector3(targetPositionList[0], targetPositionList[1], targetPositionList[2]);
-        }
+        Vector3 startRotation = SerializeHelper.ListToVector(serializableCircullarTransform.startRotation);
+        Vector3 endRotation = SerializeHelper.ListToVector(serializableCircullarTransform.endRotation);
 
-        // Parse distances from target
-        float startDistanceFromTarget = (float)dict["startDistanceFromTarget"];
-        float endDistanceFromTarget = (float)dict["endDistanceFromTarget"];
-
-        // Parse start position
-        List<float> startRotationList = (List<float>)dict["startRotation"];
-        Vector3 startRotation = new Vector3(startRotationList[0], startRotationList[1], startRotationList[2]);
-
-        // Parse end position
-        List<float> endRotationList = (List<float>)dict["endRotation"];
-        Vector3 endRotation = new Vector3(endRotationList[0], endRotationList[1], endRotationList[2]);
-
-        // Parse duration
-        float duration = (float)dict["duration"];
-
-        return new CircullarTransform(targetPosition, startRotation, endRotation, startDistanceFromTarget, endDistanceFromTarget, duration,
-                                      smoothnessEnabled);
+        return new CircullarTransform(targetPosition, startRotation, endRotation, startDistanceFromTarget, endDistanceFromTarget,
+                                      serializableCircullarTransform.duration, serializableCircullarTransform.smoothnessEnabled);
     }
 }
 
+
+[Serializable]
+public class SerializableCircullarTransform : Exception
+{
+    public string transformType { get; set; }
+    public bool smoothnessEnabled { get; set; }
+
+    public List<float> targetPosition { get; set; }
+    public List<float> startRotation { get; set; }
+    public List<float> endRotation { get; set; }
+    public float startDistanceFromTarget { get; set; }
+    public float endDistanceFromTarget { get; set; }
+    public float duration { get; set; }
+}
 
 [Serializable]
 public class CircullarTransformParseError : Exception

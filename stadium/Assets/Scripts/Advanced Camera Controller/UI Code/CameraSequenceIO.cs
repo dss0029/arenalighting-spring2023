@@ -1,5 +1,3 @@
-using Newtonsoft.Json;
-using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEditor;
@@ -13,30 +11,18 @@ public class CameraSequenceIO : MonoBehaviour
     [SerializeField]
     private AdvancedCameraController advancedCameraController;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public static T LoadJson<T>()
+    public static string LoadJson()
     {
         string path = EditorUtility.OpenFilePanel("Select Camera Sequence File", "", "json");
         if (path.Length != 0)
         {
-            return ImportJson<T>(path);
+            return ImportJson(path);
         }
 
-        return default(T);
+        return null;
     }
 
-    public static void SaveJson(string filename, object obj)
+    public static void SaveJson(string filename, string json)
     {
         var path = EditorUtility.SaveFilePanel(
             "Save camera sequence as JSON",
@@ -46,39 +32,35 @@ public class CameraSequenceIO : MonoBehaviour
 
         if (path.Length != 0)
         {
-            ExportJson(path, obj);
+            ExportJson(path, json);
         }
     }
 
-    public static T ImportJson<T>(string path)
+    public static string ImportJson(string path)
     {
-        var fileContent = File.ReadAllText(path);
-        return JsonConvert.DeserializeObject<T>(fileContent);
+        string fileContent = File.ReadAllText(path);
+        return fileContent;
     }
 
-    public static void ExportJson(string path, object obj)
+    public static void ExportJson(string path, string json)
     {
-        var jsonText = JsonConvert.SerializeObject(obj);
-        File.WriteAllText(path, jsonText);
+        File.WriteAllText(path, json);
     }
 
 
     public void LoadCameraSequence()
     {
-        Dictionary<string, object> cameraSequenceDict = LoadJson<Dictionary<string, object>>();
-        Debug.Log("CameraSequence - Parsed sequencesDictionaryList" + cameraSequenceDict.ToString());
+        string cameraSequenceJson = LoadJson();
+        if (cameraSequenceJson == null) return;
 
-        CameraSequence cameraSequence = CameraSequence.fromDict(cameraSequenceDict);
-        Debug.Log("Loaded Sequnce: " + cameraSequence.sequenceName);
+        CameraSequence cameraSequence = CameraSequence.FromJson(cameraSequenceJson);
+
         advancedCameraController.UpdateSequence(cameraSequence);
         sequenceNameText.text = cameraSequence.sequenceName;
     }
 
     public void SaveCameraSequence()
     {
-        CameraSequence sequence = advancedCameraController.cameraSequence;
-
-        Debug.Log("SaveCameraSequence Update: " + sequence.sequences.Count);
-        SaveJson("New Sequence", sequence);
+        SaveJson("New Sequence", advancedCameraController.cameraSequence.ToJson(true));
     }
 }
