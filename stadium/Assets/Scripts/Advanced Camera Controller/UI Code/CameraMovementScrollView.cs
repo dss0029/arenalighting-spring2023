@@ -61,6 +61,16 @@ public class CameraMovementScrollView : MonoBehaviour
             GameObject cameraMovementPanel = cameraMovementPanels[i];
             CameraMovementPanelManager cameraMovementPanelManager = cameraMovementPanel.GetComponent<CameraMovementPanelManager>();
             cameraMovementPanelManager.UpdateCameraMovementPanel(i, cameraMovements[i]);
+
         }
+    }
+
+    public void OnRemoveRequested(int movementID)
+    {
+        GameObject cameraMovementPanel = cameraMovementPanels[movementID];
+        cameraMovementPanels[movementID] = null;
+        Destroy(cameraMovementPanel);
+        cameraMovementPanels.RemoveAt(movementID);
+        cameraMovements.RemoveAt(movementID);
     }
 }

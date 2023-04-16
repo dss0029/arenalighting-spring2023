@@ -12,7 +12,7 @@ public class CameraMovementPanelManager : MonoBehaviour
     [SerializeField]
     TMP_Dropdown movementTypeDropDown;
 
-    int orderNumber;
+    int movementID;
     ICameraMovement cameraMovement;
 
     // Start is called before the first frame update
@@ -26,7 +26,7 @@ public class CameraMovementPanelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        numberText.text = orderNumber.ToString();
+        numberText.text = (movementID + 1).ToString();
         movementNameText.text = "Movement name";
         InitializeCameraMovementTypeOptions();
         movementTypeDropDown.value = movementTypeDropDown.options.FindIndex(option => option.text == cameraMovement.transformType.ToString());
@@ -44,9 +44,9 @@ public class CameraMovementPanelManager : MonoBehaviour
         movementTypeDropDown.options = options;
     }
 
-    public void UpdateCameraMovementPanel(int orderNumber, ICameraMovement cameraMovement)
+    public void UpdateCameraMovementPanel(int movementID, ICameraMovement cameraMovement)
     {
-        this.orderNumber = orderNumber;
+        this.movementID = movementID;
         this.cameraMovement = cameraMovement;
     }
 }
