@@ -5,11 +5,6 @@ using UnityEngine.UI;
 
 public class Selector : MonoBehaviour
 {
-    public bool glowing;
-    Material emissiveMaterial;
-    public Button sectionSelectorButton;
-    public InputField sectionSelectorInput;
-
     public List<Transform> GetAllChildren(Transform LEDs, bool recursive)
     {
         List<Transform> children = new List<Transform>();
@@ -25,29 +20,20 @@ public class Selector : MonoBehaviour
         return children;
     }
 
-    void changeSectionLights(string[] sections)
+    void getSectionLights(string[] sections)
     {
-        glowing = !glowing;
         foreach (string section in sections)
         {
             GameObject selectedSection = GameObject.Find(section);
-            Debug.Log(selectedSection);
+            //Debug.Log(selectedSection);
             Transform[] selectedSectionLights = selectedSection.GetComponentsInChildren<Transform>();
             List<Transform> lightsList = new List<Transform>();
-            foreach (Transform t in selectedSectionLights)
+            foreach (Transform light in selectedSectionLights)
             {
-                if (t.name.Contains("Sphere"))
+                if (light.name.Contains("LEDTemplate"))
                 {
-                    lightsList.Add(t.transform);
-                    emissiveMaterial = t.GetComponent<Renderer>().material;
-                    if (glowing)
-                    {
-                        emissiveMaterial.DisableKeyword("_EMISSION");
-                    }
-                    else
-                    {
-                        emissiveMaterial.EnableKeyword("_EMISSION");
-                    }
+                    lightsList.Add(light.transform);
+                    //Debug.Log(light);
                 }
             }
         }
@@ -56,10 +42,8 @@ public class Selector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        glowing = true;
-        string[] sections = new string[]{"LEDs (1)", "LEDs"};
-        sectionSelectorButton.onClick.AddListener(delegate{changeSectionLights(sections);});
-        //changeSectionLights(section);
+        string[] sections = new string[]{"Section 16", "Section 19"};
+        getSectionLights(sections);
     }
 
     // Update is called once per frame
