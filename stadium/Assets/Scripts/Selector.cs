@@ -5,21 +5,6 @@ using UnityEngine.UI;
 
 public class Selector : MonoBehaviour
 {
-    public List<Transform> GetAllChildren(Transform LEDs, bool recursive)
-    {
-        List<Transform> children = new List<Transform>();
-
-        foreach (Transform child in LEDs)
-        {
-            children.Add(child);
-            if (recursive)
-            {
-                children.AddRange(GetAllChildren(child, true));
-            }
-        }
-        return children;
-    }
-
     void getSectionLights(string[] sections)
     {
         foreach (string section in sections)
@@ -42,8 +27,13 @@ public class Selector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        string[] sections = new string[]{"Section 16", "Section 19"};
-        getSectionLights(sections);
+        bool selector = false;
+        if (selector == true)
+        {
+            string[] sections = new string[]{""};
+            // "Section 16, Section 19" for example
+            getSectionLights(sections);
+        }
     }
 
     // Update is called once per frame
