@@ -27,7 +27,7 @@ public class CameraMovementPanelManager : MonoBehaviour
     void Update()
     {
         numberText.text = (movementID + 1).ToString();
-        movementNameText.text = "Movement name";
+        movementNameText.text = cameraMovement.movementName;
         InitializeCameraMovementTypeOptions();
         movementTypeDropDown.value = movementTypeDropDown.options.FindIndex(option => option.text == cameraMovement.transformType.ToString());
     }

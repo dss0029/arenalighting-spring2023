@@ -50,11 +50,11 @@ public class CameraSequence
         {
             if (sequencesJson[i].Contains("Linear"))
             {
-                cameraMovements.Add(LinearTransform.FromJson(sequencesJson[i]));
+                cameraMovements.Add(LinearMovement.FromJson(sequencesJson[i]));
             }
             else if (sequencesJson[i].Contains("Circullar"))
             {
-                cameraMovements.Add(CircullarTransform.FromJson(sequencesJson[i]));
+                cameraMovements.Add(CircullarMovement.FromJson(sequencesJson[i]));
             }
         }
 
