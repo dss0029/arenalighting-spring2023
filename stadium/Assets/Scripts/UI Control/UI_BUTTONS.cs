@@ -8,9 +8,11 @@ public class UI_BUTTONS : MonoBehaviour
     public GameObject colorPanel;
     public GameObject musicPanel;
     public GameObject intensityPanel;
+    public GameObject selectorPanel;
     public Button colorButton;
     public Button intensityButton;
     public Button musicButton;
+    public Button selectorButton;
     public Color activeColor;
     public Color inactiveColor;
     public GameObject canvas;
@@ -21,11 +23,13 @@ public class UI_BUTTONS : MonoBehaviour
         intensityPanel.SetActive(false);
         musicPanel.SetActive(false);
         colorPanel.SetActive(false);
+        selectorPanel.SetActive(false);
         activeColor = new Color(0.2509804f, 0.2509804f, 0.2509804f, 1.0f);
         inactiveColor = new Color(0.1921569f, 0.1921569f, 0.1921569f, 1.0f);
         colorButton.onClick.AddListener(openColorMenu);
         intensityButton.onClick.AddListener(openIntensityMenu);
         musicButton.onClick.AddListener(openMusicMenu);
+        selectorButton.onClick.AddListener(openSelectorMenu);
     }
 
     // Update is called once per frame
@@ -55,6 +59,15 @@ public class UI_BUTTONS : MonoBehaviour
             musicButton.GetComponent<Image>().color = inactiveColor;
         }
 
+        if (selectorPanel.activeSelf)
+        {
+            selectorButton.GetComponent<Image>().color = activeColor;
+        }
+        else
+        {
+            selectorButton.GetComponent<Image>().color = inactiveColor;
+        }
+
         if (Input.GetKeyDown(KeyCode.U))
         {
             canvas.SetActive(!canvas.activeSelf);
@@ -65,6 +78,7 @@ public class UI_BUTTONS : MonoBehaviour
     {
         intensityPanel.SetActive(false);
         musicPanel.SetActive(false);
+        selectorPanel.SetActive(false);
         colorPanel.SetActive(!colorPanel.activeSelf);
     }
 
@@ -72,13 +86,23 @@ public class UI_BUTTONS : MonoBehaviour
     {
         intensityPanel.SetActive(!intensityPanel.activeSelf);
         musicPanel.SetActive(false);
+        selectorPanel.SetActive(false);
         colorPanel.SetActive(false);
     }
 
     void openMusicMenu()
     {
         intensityPanel.SetActive(false);
+        selectorPanel.SetActive(false);
         musicPanel.SetActive(!musicPanel.activeSelf);
+        colorPanel.SetActive(false);
+    }
+
+    void openSelectorMenu()
+    {
+        intensityPanel.SetActive(false);
+        musicPanel.SetActive(false);
+        selectorPanel.SetActive(!selectorPanel.activeSelf);
         colorPanel.SetActive(false);
     }
 }
