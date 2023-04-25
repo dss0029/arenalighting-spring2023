@@ -91,16 +91,16 @@ public class ColorController : MonoBehaviour
             fadeTime += Time.deltaTime;
             fadeFrame = fadeTime / fadeDuration;
             Color frameColor = gradient.Evaluate(fadeFrame);
+            if (fadeTime >= fadeDuration)
+            {
+                fading = false;
+                frameColor = gradient.Evaluate(1.0f);
+            }
+
             foreach (GameObject LED in allLEDs)
             {
                 LED.GetComponent<Renderer>().material.color = frameColor;
                 LED.GetComponent<Renderer>().material.SetColor("_EmissionColor", frameColor);
-            }
-            GameObject firstLED = allLEDs[0];
-            Color currentColor = firstLED.GetComponent<Renderer>().material.color;
-            if (currentColor == fadeEnd)
-            {
-                fading = false;
             }
         }
     }
@@ -209,6 +209,9 @@ public class ColorController : MonoBehaviour
 
     void SetRandom()
     {
+        // Disable fading
+        fading = false;
+
         Color newColor;
         GameObject[] allLEDs = GetAllLEDs();
         foreach (GameObject LED in allLEDs)
