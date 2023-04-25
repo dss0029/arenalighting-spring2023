@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2181234783051363235}
   - component: {fileID: 2181234783051363234}
   - component: {fileID: 2181234783051363237}
-  - component: {fileID: -1204849575161584429}
   m_Layer: 0
   m_Name: LEDTemplate
   m_TagString: LED
@@ -96,19 +95,3 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-1204849575161584429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2181234783051363239}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d75896cb1209924e8c850c1a5e9d943, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  auBlue1: {fileID: 0}
-  auBlue2: {fileID: 0}
-  auOrange1: {fileID: 0}
-  auOrange2: {fileID: 0}
