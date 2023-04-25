@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -9,7 +6,7 @@ public class AudioPeer : MonoBehaviour
 {
     public AudioSource audioSource;
 
-    public float bufferDecreaseSpeed = 0.005f;
+    public float bufferDecreaseSpeed = 0.01f;
     public float bufferDecreaseAcceleration = 1.2f;
 
     [HideInInspector]
