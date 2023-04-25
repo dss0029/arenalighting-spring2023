@@ -27,11 +27,12 @@ public class Selector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Currently only returns a list of LEDs in a specified section
         bool selector = false;
         if (selector == true)
         {
             string[] sections = new string[]{""};
-            // "Section 16, Section 19" for example
+            // For example: new string[]{"Section 16", "Section 19"};
             getSectionLights(sections);
         }
     }
