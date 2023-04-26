@@ -60,9 +60,7 @@ public static class FixedCameraControlData
 
     public static Dictionary<string, Tuple<Vector3, Vector3>> LoadFixedCameraControlData()
     {
-        Debug.Log("Opening text asset");
         TextAsset targetFile = Resources.Load<TextAsset>(filePath);
-        Debug.Log(targetFile.name);
         return FromJson(targetFile.text);
     }
 }

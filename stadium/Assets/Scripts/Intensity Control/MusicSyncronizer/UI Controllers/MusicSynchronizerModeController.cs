@@ -16,7 +16,6 @@ public class MusicSynchronizerModeController : MonoBehaviour
         foreach (MusicSynchronizerMode mode in Enum.GetValues(typeof(MusicSynchronizerMode)))
         {
             musicSynchronizerModes.Add(mode);
-            Debug.Log(mode.ToString());
         }
 
         musicSynchronizerModeText.text = musicSynchronizerModes[currentSelectedMode].ToString();

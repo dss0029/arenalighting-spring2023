@@ -85,8 +85,8 @@ public class GlowFadeController : MonoBehaviour
         flashing = !flashing;
         if (flashing)
         {
-            InvokeRepeating("fade", 0.0f, 1.0f);
-            InvokeRepeating("glow", 0.5f, 1.0f);
+            InvokeRepeating("Fade", 0.0f, 1.0f);
+            InvokeRepeating("Glow", 0.5f, 1.0f);
         }
         else
         {
