@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 
-public class Selector_Controller : MonoBehaviour
+public class SelectorController : MonoBehaviour
 {
     public GameObject TopDeck;
     public GameObject UpperDeck;
@@ -16,9 +14,9 @@ public class Selector_Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        TopToggle.onValueChanged.AddListener(delegate { toggleTopDeck(); });
-        UpperToggle.onValueChanged.AddListener(delegate { toggleUpperDeck(); });
-        LowerToggle.onValueChanged.AddListener(delegate { toggleLowerDeck(); });
+        TopToggle.onValueChanged.AddListener(delegate { ToggleTopDeck(); });
+        UpperToggle.onValueChanged.AddListener(delegate { ToggleUpperDeck(); });
+        LowerToggle.onValueChanged.AddListener(delegate { ToggleLowerDeck(); });
     }
 
     // Update is called once per frame
@@ -27,19 +25,19 @@ public class Selector_Controller : MonoBehaviour
 
     }
 
-    void toggleTopDeck()
+    void ToggleTopDeck()
     {
         TopDeck.SetActive(!TopDeck.activeSelf);
         // Debug.Log("Top");
     }
 
-    void toggleUpperDeck()
+    void ToggleUpperDeck()
     {
         UpperDeck.SetActive(!UpperDeck.activeSelf);
         // Debug.Log("Upper");
     }
 
-    void toggleLowerDeck()
+    void ToggleLowerDeck()
     {
         LowerDeck.SetActive(!LowerDeck.activeSelf);
         // Debug.Log("Lower");

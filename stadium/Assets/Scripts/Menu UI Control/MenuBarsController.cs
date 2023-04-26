@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_BUTTONS : MonoBehaviour
+public class MenuBarsController : MonoBehaviour
 {
     public GameObject colorPanel;
     public GameObject musicPanel;
@@ -26,10 +24,10 @@ public class UI_BUTTONS : MonoBehaviour
         selectorPanel.SetActive(false);
         activeColor = new Color(0.2509804f, 0.2509804f, 0.2509804f, 1.0f);
         inactiveColor = new Color(0.1921569f, 0.1921569f, 0.1921569f, 1.0f);
-        colorButton.onClick.AddListener(openColorMenu);
-        intensityButton.onClick.AddListener(openIntensityMenu);
-        musicButton.onClick.AddListener(openMusicMenu);
-        selectorButton.onClick.AddListener(openSelectorMenu);
+        colorButton.onClick.AddListener(OpenColorMenu);
+        intensityButton.onClick.AddListener(OpenIntensityMenu);
+        musicButton.onClick.AddListener(OpenMusicMenu);
+        selectorButton.onClick.AddListener(OpenSelectorMenu);
     }
 
     // Update is called once per frame
@@ -74,7 +72,7 @@ public class UI_BUTTONS : MonoBehaviour
         }
     }
 
-    void openColorMenu()
+    void OpenColorMenu()
     {
         intensityPanel.SetActive(false);
         musicPanel.SetActive(false);
@@ -82,7 +80,7 @@ public class UI_BUTTONS : MonoBehaviour
         colorPanel.SetActive(!colorPanel.activeSelf);
     }
 
-    void openIntensityMenu()
+    void OpenIntensityMenu()
     {
         intensityPanel.SetActive(!intensityPanel.activeSelf);
         musicPanel.SetActive(false);
@@ -90,7 +88,7 @@ public class UI_BUTTONS : MonoBehaviour
         colorPanel.SetActive(false);
     }
 
-    void openMusicMenu()
+    void OpenMusicMenu()
     {
         intensityPanel.SetActive(false);
         selectorPanel.SetActive(false);
@@ -98,7 +96,7 @@ public class UI_BUTTONS : MonoBehaviour
         colorPanel.SetActive(false);
     }
 
-    void openSelectorMenu()
+    void OpenSelectorMenu()
     {
         intensityPanel.SetActive(false);
         musicPanel.SetActive(false);
