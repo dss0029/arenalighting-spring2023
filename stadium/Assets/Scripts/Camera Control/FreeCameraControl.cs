@@ -12,39 +12,19 @@ public class FreeCameraControl : MonoBehaviour
 
 
     public float movementSpeed;
+    [SerializeField]
+    float normalSpeed, shiftSpeed, normalAcceleration, shiftAcceleration;
+
+    void Start()
+    {
+        UpdateCurrentRotation();
+    }
 
     // Update is called once per frame
     void Update()
     {
-
-        float x_movement = 0f;
-        float y_movement = 0f;
-        float z_movement = 0f;
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            z_movement += movementSpeed;
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            z_movement -= movementSpeed;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            x_movement -= movementSpeed;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            x_movement += movementSpeed;
-        }
-
-        x_movement *= Time.deltaTime;
-        z_movement *= Time.deltaTime;
-
-
-        // Move object relative to its position
-        MainCamera.transform.Translate(x_movement, y_movement, z_movement, Space.Self);
-
+        UpdateSpeed();
+        UpdateMovement();
 
         // Rotate object using a mouse
         rotationX += Input.GetAxis("Mouse X") * rotationSensitivity * Time.deltaTime;
@@ -52,5 +32,73 @@ public class FreeCameraControl : MonoBehaviour
         rotationY = Mathf.Clamp(rotationY, -50, 50);
         MainCamera.transform.localEulerAngles = new Vector3(rotationY, rotationX, 0);
 
+    }
+
+    void UpdateCurrentRotation()
+    {
+        Transform cameraTransform = MainCamera.transform;
+        rotationX = cameraTransform.localEulerAngles.x;
+        rotationY = cameraTransform.localEulerAngles.y;
+    }
+
+    void UpdateSpeed()
+    {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            movementSpeed += shiftAcceleration;
+            if (movementSpeed > shiftSpeed)
+            {
+                movementSpeed = shiftSpeed;
+            } 
+        }
+        else
+        {
+            movementSpeed += normalAcceleration;
+            if (movementSpeed > normalSpeed)
+            {
+                movementSpeed = normalSpeed;
+            }
+        }
+    }
+
+    void UpdateMovement()
+    {
+        float xMovement = 0f;
+        float yMovement = 0f;
+        float zMovement = 0f;
+
+        bool resetSpeed = false;
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            zMovement += movementSpeed;
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            zMovement -= movementSpeed;
+        }
+        else
+        {
+            resetSpeed = true;
+        }
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            xMovement -= movementSpeed;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            xMovement += movementSpeed;
+        }
+        else if (resetSpeed)
+        {
+            movementSpeed = 0f;
+        }
+
+        xMovement *= Time.deltaTime;
+        zMovement *= Time.deltaTime;
+
+        // Move object relative to its position
+        MainCamera.transform.Translate(xMovement, yMovement, zMovement, Space.Self);
     }
 }
