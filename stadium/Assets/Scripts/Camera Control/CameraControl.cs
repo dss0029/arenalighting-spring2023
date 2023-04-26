@@ -10,7 +10,9 @@ public class CameraControl : MonoBehaviour
     public TMP_Text cameraControlTypeText;
     public GameObject fixedCameraPositionPanel;
     public GameObject dynamicCameraControlPanel;
-    public GameObject freeCameraControl;
+
+    [SerializeField]
+    FreeCameraControl freeCameraControl;
 
     private void Start()
     {
@@ -89,11 +91,11 @@ public class CameraControl : MonoBehaviour
 
     private void EnableFreeMode()
     {
-        freeCameraControl.SetActive(true);
+        freeCameraControl.Enable();
     }
 
     private void DisableFreeMode()
     {
-        freeCameraControl.SetActive(false);
+        freeCameraControl.Disable();
     }
 }
