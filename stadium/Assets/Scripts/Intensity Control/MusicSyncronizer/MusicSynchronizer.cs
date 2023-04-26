@@ -40,8 +40,6 @@ public class MusicSynchronizer : MonoBehaviour
     private GameObject[] allLEDs;
     bool randomLight = false;
 
-    private float musicVolume = 1.0f;
-
     void Start()
     {
         audioPeer.audioSource.playOnAwake = false;
@@ -64,9 +62,6 @@ public class MusicSynchronizer : MonoBehaviour
         {
             amplitudeMode();
         }
-
-        // Update volume
-        audioPeer.audioSource.volume = musicVolume;
     }
 
     void linearMode()
@@ -211,7 +206,7 @@ public class MusicSynchronizer : MonoBehaviour
 
     public void UpdateVolume(float volume)
     {
-        musicVolume = volume;
+        audioPeer.audioSource.volume = volume;
     }
 
     public void UpdateMusicTime(float range)

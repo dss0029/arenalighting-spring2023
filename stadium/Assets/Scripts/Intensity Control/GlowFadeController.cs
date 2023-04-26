@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,8 +6,6 @@ public class GlowFadeController : MonoBehaviour
     public Button fadeButton;
     public Button glowButton;
     public Button flashButton;
-    // public Button pulseButton;
-    // public Toggle flashToggle;
     public Toggle pulseToggle;
 
 
@@ -20,68 +16,27 @@ public class GlowFadeController : MonoBehaviour
     public InputField pulseSpeedInput;
     Material emissiveMaterial;
 
+    GameObject[] GetAllLEDs()
+    {
+        string ledTag = "LED";
+        return GameObject.FindGameObjectsWithTag(ledTag);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         pulseSpeed = 1.0f;
-        fadeButton.onClick.AddListener(fade);
-        glowButton.onClick.AddListener(glow);
-        flashButton.onClick.AddListener(flash);
-        pulseSpeedInput.onEndEdit.AddListener(setPulseSpeed);
+        fadeButton.onClick.AddListener(Fade);
+        glowButton.onClick.AddListener(Glow);
+        flashButton.onClick.AddListener(Flash);
+        pulseSpeedInput.onEndEdit.AddListener(SetPulseSpeed);
         flashing = false;
-    }
-
-    void fade()
-    {
-        GameObject[] allLEDs;
-        string tag = "LED";
-        allLEDs = GameObject.FindGameObjectsWithTag(tag);
-        foreach (GameObject LED in allLEDs)
-        {
-            emissiveMaterial = LED.GetComponent<Renderer>().material;
-            emissiveMaterial.DisableKeyword("_EMISSION");
-        }
-    }
-
-    void glow()
-    {
-        GameObject[] allLEDs;
-        string tag = "LED";
-        allLEDs = GameObject.FindGameObjectsWithTag(tag);
-        foreach (GameObject LED in allLEDs)
-        {
-            emissiveMaterial = LED.GetComponent<Renderer>().material;
-            emissiveMaterial.EnableKeyword("_EMISSION");
-        }
-    }
-
-    void flash()
-    {
-        flashing = !flashing;
-        if (flashing)
-        {
-            InvokeRepeating("fade", 0.0f, 1.0f);
-            InvokeRepeating("glow", 0.5f, 1.0f);
-        }
-        else
-        {
-            CancelInvoke();
-        }
-    }
-
-    void setPulseSpeed(string speed)
-    {
-        pulseSpeed = float.Parse(speed);
     }
 
     // Update is called once per frame
     void Update()
     {
-        GameObject[] allLEDs;
-        string tag = "LED";
-        allLEDs = GameObject.FindGameObjectsWithTag(tag);
-        
+        GameObject[] allLEDs = GetAllLEDs();
 
         if (pulseToggle.isOn)
         {
@@ -103,17 +58,44 @@ public class GlowFadeController : MonoBehaviour
                 emissiveMaterial.SetColor("_EmissionColor", color);
             }
         }
+    }
 
-        /*
+    void Fade()
+    {
+        GameObject[] allLEDs = GetAllLEDs();
+        foreach (GameObject LED in allLEDs)
+        {
+            emissiveMaterial = LED.GetComponent<Renderer>().material;
+            emissiveMaterial.DisableKeyword("_EMISSION");
+        }
+    }
+
+    void Glow()
+    {
+        GameObject[] allLEDs = GetAllLEDs();
+        foreach (GameObject LED in allLEDs)
+        {
+            emissiveMaterial = LED.GetComponent<Renderer>().material;
+            emissiveMaterial.EnableKeyword("_EMISSION");
+        }
+    }
+
+    void Flash()
+    {
+        flashing = !flashing;
+        if (flashing)
+        {
+            InvokeRepeating("Fade", 0.0f, 1.0f);
+            InvokeRepeating("Glow", 0.5f, 1.0f);
+        }
         else
         {
-            foreach (GameObject LED in allLEDs)
-            {
-                startingColor = LED.GetComponent<Renderer>().material.color;
-                emissiveMaterial = LED.GetComponent<Renderer>().material;
-                emissiveMaterial.SetColor("_EmissionColor", startingColor * 0.03f);
-            }
+            CancelInvoke();
         }
-        */
+    }
+
+    void SetPulseSpeed(string speed)
+    {
+        pulseSpeed = float.Parse(speed);
     }
 }

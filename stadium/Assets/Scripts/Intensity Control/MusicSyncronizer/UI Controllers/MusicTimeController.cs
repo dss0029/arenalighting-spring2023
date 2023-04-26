@@ -32,6 +32,8 @@ public class MusicTimeController : MonoBehaviour
 
         int remainingAudioTime = (int) musicToLight.TotalAudioTime() - currentAudioTime;
         remainingTimeText.text = "-" + formatTime(remainingAudioTime);
+
+        slider.value = musicToLight.CurrentAudioTime() / musicToLight.TotalAudioTime();
     }
 
     string formatTime(int time)
