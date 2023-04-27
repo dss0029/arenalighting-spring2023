@@ -96,6 +96,7 @@ public class GlowFadeController : MonoBehaviour
 
     void SetPulseSpeed(string speed)
     {
+        if (speed == null || speed == "") return;
         pulseSpeed = float.Parse(speed);
     }
 }
