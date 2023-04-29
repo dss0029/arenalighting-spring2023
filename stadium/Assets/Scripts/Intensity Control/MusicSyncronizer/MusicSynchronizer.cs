@@ -1,6 +1,9 @@
+using SimpleFileBrowser;
 using System.Collections;
 using TMPro;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Networking;
@@ -39,12 +42,18 @@ public class MusicSynchronizer : MonoBehaviour
 
     private GameObject[] allLEDs;
     bool randomLight = false;
+    string audioFilePath = string.Empty;
 
     void Start()
     {
         audioPeer.audioSource.playOnAwake = false;
         audioPeer.audioSource.Stop();
         allLEDs = GameObject.FindGameObjectsWithTag("LED");
+
+        FileBrowser.SetFilters(true, new FileBrowser.Filter("Audio Files", ".mp3"));
+        FileBrowser.SetDefaultFilter(".mp3");
+        FileBrowser.SetExcludedExtensions(".lnk", ".tmp", ".zip", ".rar", ".exe");
+        FileBrowser.AddQuickLink("Users", "C:\\Users", null);
     }
 
     void Update()
@@ -149,27 +158,77 @@ public class MusicSynchronizer : MonoBehaviour
 
     public void LoadMusic()
     {
-        string path = OpenFilePanel();
-        if (path != null) {
-            StopMusic();
-            musicStateChangeEvent.Invoke(MusicState.NewMusicLoaded);
-            
-            loadMusicButton.GetComponentInChildren<TextMeshProUGUI>().text = "Loading...";
-            loadMusicButton.GetComponent<Button>().interactable = false;
-            StartCoroutine(GetAudioClip(path));
-        }
-        
+        #if UNITY_EDITOR
+        EditorLoadMusic();
+        #else
+        StartCoroutine(ApplicationLoadMusicCoroutines());
+        #endif
     }
 
     string OpenFilePanel()
     {
+        #if UNITY_EDITOR
         string path = EditorUtility.OpenFilePanel("Select Music", "", "mp3");
         if (path.Length != 0)
         {
             return path;
         }
+        #endif
 
         return null;
+    }
+
+    void EditorLoadMusic()
+    {
+        // Unity Editor Version
+        string path = OpenFilePanel();
+        if (path != null)
+        {
+            StopMusic();
+            musicStateChangeEvent.Invoke(MusicState.NewMusicLoaded);
+
+            loadMusicButton.GetComponentInChildren<TextMeshProUGUI>().text = "Loading...";
+            loadMusicButton.GetComponent<Button>().interactable = false;
+            StartCoroutine(GetAudioClip(path));
+        }
+    }
+
+    IEnumerator ApplicationLoadMusicCoroutines()
+    {
+        yield return ShowFilePanelCourotine();
+
+        if (audioFilePath.Length != 0)
+        {
+            StopMusic();
+            musicStateChangeEvent.Invoke(MusicState.NewMusicLoaded);
+
+            loadMusicButton.GetComponentInChildren<TextMeshProUGUI>().text = "Loading...";
+            loadMusicButton.GetComponent<Button>().interactable = false;
+            StartCoroutine(GetAudioClip(audioFilePath));
+        }
+    }
+
+    IEnumerator ShowFilePanelCourotine()
+    {
+        // Show a load file dialog and wait for a response from user
+        // Load file/folder: both, Allow multiple selection: true
+        // Initial path: default (Documents), Initial filename: empty
+        // Title: "Load File", Submit button text: "Load"
+        yield return FileBrowser.WaitForLoadDialog(FileBrowser.PickMode.Files, false, null, null, "Load MP3 Audio File", "Load");
+
+        // Dialog is closed
+        // Print whether the user has selected some files/folders or cancelled the operation (FileBrowser.Success)
+        // Debug.Log(FileBrowser.Success);
+
+        if (FileBrowser.Success)
+        {
+            audioFilePath = FileBrowser.Result[0];
+            audioFilePath = audioFilePath.Replace("\\", "/");
+        }
+        else
+        {
+            audioFilePath = string.Empty;
+        }
     }
 
     IEnumerator GetAudioClip(string path)
