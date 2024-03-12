@@ -175,24 +175,24 @@ public class ColorController : MonoBehaviour
     }
 
     public void OnEditHexCodeString(string hexCodeString)
-    {
-        hexCodeColor = null;
-        if (hexCodeString == null || hexCodeString == "" || hexCodeString.Length != 8)
-        {
-            return;
-        }
+{
+    hexCodeColor = null;
 
-        Color newColor;
-        string htmlValue = "#" + hexCodeString;
-        if (ColorUtility.TryParseHtmlString(htmlValue, out newColor))
-        {
-            hexCodeColor = newColor;
-        }
-        else
-        {
-            Debug.Log("Error: " + hexCodeString + " is not a valid hexadecimal value.");
-        }
+    if (hexCodeString == null || hexCodeString == "" || hexCodeString.Length != 6)
+    {
+        return;
     }
+
+    // Parse the hex code string and convert it to a Color object
+    if (ColorUtility.TryParseHtmlString("#" + hexCodeString, out Color newColor))
+    {
+        hexCodeColor = newColor;
+    }
+    else
+    {
+        Debug.Log("Error: " + hexCodeString + " is not a valid hexadecimal value.");
+    }
+}
 
     public void OnSetHexCodeColor()
     {
@@ -234,4 +234,3 @@ public class ColorController : MonoBehaviour
         }
     }
 }
-

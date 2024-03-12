@@ -6,6 +6,7 @@ public class GlowFadeController : MonoBehaviour
     public Button fadeButton;
     public Button glowButton;
     public Button flashButton;
+    public Button twinkleButton;
     public Toggle pulseToggle;
 
 
@@ -13,8 +14,10 @@ public class GlowFadeController : MonoBehaviour
     public AnimationCurve BrightnessCurve;
     public Color startingColor;
     public bool flashing;
+    public bool twinkling;
     public InputField pulseSpeedInput;
     Material emissiveMaterial;
+
 
     GameObject[] GetAllLEDs()
     {
@@ -91,6 +94,23 @@ public class GlowFadeController : MonoBehaviour
         else
         {
             CancelInvoke();
+        }
+    }
+
+    void Twinkle()
+    {
+        GameObject[] allLEDs = GetAllLEDs();
+        foreach (GameObject LED in allLEDs)
+        {
+            emissiveMaterial = LED.GetComponent<Renderer>().material;
+            emissiveMaterial.EnableKeyword("_EMISSION");
+
+            // Randomize intensity within a specified range (adjust min and max values as needed)
+            float randomIntensity = Random.Range(0.5f, 1.5f);
+
+            // Apply random intensity to the emission color
+            Color color = startingColor * randomIntensity;
+            emissiveMaterial.SetColor("_EmissionColor", color);
         }
     }
 
